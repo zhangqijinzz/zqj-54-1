@@ -2,6 +2,8 @@ export type Category = 'self-intro' | 'project' | 'conflict' | 'resignation'
 export type StructureType = 'STAR' | 'compare' | 'conclusion-first'
 export type Difficulty = 1 | 2 | 3
 export type TimeLimit = 30 | 60 | 90
+export type MockExamQuestionCount = 3 | 5 | 8
+export type MockExamTotalTime = 3 | 5 | 8 | 10
 
 export interface Question {
   id: string
@@ -37,6 +39,36 @@ export interface PracticeStats {
   streakDays: number
 }
 
+export interface MockExamQuestionResult {
+  questionId: string
+  answer: string
+  actualTime: number
+  isTimeout: boolean
+  stuckCount: number
+  order: number
+}
+
+export interface MockExamRecord {
+  id: string
+  questionCount: MockExamQuestionCount
+  totalTimeLimit: MockExamTotalTime
+  questions: string[]
+  results: MockExamQuestionResult[]
+  totalActualTime: number
+  totalStuckCount: number
+  timeoutCount: number
+  overallScore: number
+  completedAt: string
+}
+
+export interface MockExamStats {
+  totalExams: number
+  averageScore: number
+  averageStuckCount: number
+  averageTimeoutRate: number
+  recentTrend: number[]
+}
+
 export const CATEGORY_CONFIG: Record<Category, { label: string; color: string; icon: string }> = {
   'self-intro': { label: '自我介绍', color: '#6366f1', icon: 'User' },
   'project': { label: '项目经历', color: '#f59e0b', icon: 'FolderKanban' },
@@ -67,3 +99,23 @@ export const TIME_LIMIT_OPTIONS: { value: TimeLimit; label: string }[] = [
   { value: 60, label: '60秒' },
   { value: 90, label: '90秒' },
 ]
+
+export const MOCK_EXAM_QUESTION_COUNT_OPTIONS: { value: MockExamQuestionCount; label: string }[] = [
+  { value: 3, label: '3题' },
+  { value: 5, label: '5题' },
+  { value: 8, label: '8题' },
+]
+
+export const MOCK_EXAM_TOTAL_TIME_OPTIONS: { value: MockExamTotalTime; label: string }[] = [
+  { value: 3, label: '3分钟' },
+  { value: 5, label: '5分钟' },
+  { value: 8, label: '8分钟' },
+  { value: 10, label: '10分钟' },
+]
+
+export const MOCK_EXAM_CATEGORY_RATIO: Record<Category, number> = {
+  'self-intro': 1,
+  'project': 2,
+  'conflict': 1,
+  'resignation': 1,
+}

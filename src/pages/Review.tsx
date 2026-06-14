@@ -1,17 +1,18 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Target, Flame, Trophy, Clock, ArrowRight, CheckCircle2, XCircle, Play, Zap, BarChart3 } from 'lucide-react'
+import { Target, Flame, Trophy, Clock, ArrowRight, CheckCircle2, XCircle, Play, Zap, BarChart3, FileText, ExternalLink } from 'lucide-react'
 import { useStore } from '@/store/useStore'
 import { questions } from '@/data/questions'
 import { CATEGORY_CONFIG } from '@/data/types'
 import { useNavigate } from 'react-router-dom'
 
 export default function Review() {
-  const { getWeakPointsList, getStats, practiceRecords, markMastered, getTodayPracticeCount } = useStore()
+  const { getWeakPointsList, getStats, practiceRecords, markMastered, getTodayPracticeCount, getMockExamStats } = useStore()
   const navigate = useNavigate()
   const weakPoints = getWeakPointsList()
   const stats = getStats()
   const todayCount = getTodayPracticeCount()
+  const mockExamStats = getMockExamStats()
   const [activeTab, setActiveTab] = useState<'weak' | 'stats'>('weak')
   const [intensiveMode, setIntensiveMode] = useState(false)
   const [intensiveIndex, setIntensiveIndex] = useState(0)
@@ -136,7 +137,7 @@ export default function Review() {
           </div>
         )}
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setActiveTab('weak')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -153,6 +154,17 @@ export default function Review() {
           >
             最近记录
           </button>
+          <div className="flex-1" />
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/mock-exam/records')}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#6366f1]/15 text-[#6366f1] text-sm font-medium hover:bg-[#6366f1]/25 transition-colors"
+          >
+            <FileText className="w-4 h-4" />
+            模考记录 ({mockExamStats.totalExams})
+            <ExternalLink className="w-3 h-3" />
+          </motion.button>
         </div>
 
         <AnimatePresence mode="wait">

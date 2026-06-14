@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import { Bomb, Target, BookOpen } from 'lucide-react'
+import { Bomb, Target, BookOpen, GraduationCap, FileText } from 'lucide-react'
 
 const navItems = [
   { path: '/', label: '拆弹训练场', icon: Bomb },
+  { path: '/mock-exam', label: '模拟面试', icon: GraduationCap },
+  { path: '/mock-exam/records', label: '模考记录', icon: FileText },
   { path: '/review', label: '弱点复盘台', icon: Target },
   { path: '/bank', label: '题库弹药库', icon: BookOpen },
 ]
