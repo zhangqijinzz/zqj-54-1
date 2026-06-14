@@ -2,11 +2,11 @@ import { NavLink } from 'react-router-dom'
 import { Bomb, Target, BookOpen, GraduationCap, FileText } from 'lucide-react'
 
 const navItems = [
-  { path: '/', label: '拆弹训练场', icon: Bomb },
-  { path: '/mock-exam', label: '模拟面试', icon: GraduationCap },
-  { path: '/mock-exam/records', label: '模考记录', icon: FileText },
-  { path: '/review', label: '弱点复盘台', icon: Target },
-  { path: '/bank', label: '题库弹药库', icon: BookOpen },
+  { path: '/', label: '拆弹训练场', icon: Bomb, end: true },
+  { path: '/mock-exam', label: '模拟面试', icon: GraduationCap, end: true },
+  { path: '/mock-exam/records', label: '模考记录', icon: FileText, end: false },
+  { path: '/review', label: '弱点复盘台', icon: Target, end: false },
+  { path: '/bank', label: '题库弹药库', icon: BookOpen, end: false },
 ]
 
 export default function Sidebar() {
@@ -28,6 +28,7 @@ export default function Sidebar() {
           <NavLink
             key={item.path}
             to={item.path}
+            end={item.end}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive
